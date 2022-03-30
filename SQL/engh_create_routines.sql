@@ -89,7 +89,7 @@ From play p
 Group By pitcherID);
 
 -- balls per pitch type
-CREATE OR REPLACE VIEW pitcher_strikes_pitchType AS (
+CREATE OR REPLACE VIEW pitcher_balls_pitchType AS (
 Select pitcherID,
   Sum(case when pitchType = 'Fastball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallFastball,
   Sum(case when pitchType = 'Curveball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCurveball,
