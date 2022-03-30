@@ -26,8 +26,8 @@ def main():
             file.write(f"\n/* {INNINGS_PER_GAME} innings generated for game {game_id} */\n")
             for inning in range(1, INNINGS_PER_GAME+1):
                 file.write(f"\n--Inning {inning}\n")
-                file.write(gen_inning(game_id, inning))
                 inning_pitcher = random.choice(range(NUM_PITCHERS))
+                file.write(gen_inning(game_id, inning, inning_pitcher))
                 file.write(f"\n-- {PLAYS_PER_INNING} plays generated for inning {inning} of game {game_id}\n")
                 for play in range(PLAYS_PER_INNING):
                     file.write(gen_pitch(game_id, inning, play, inning_pitcher))
@@ -46,12 +46,9 @@ def gen_pitch(game, inning, pitch, pitcher):
            f"{pitch_num}, '{pitch_result}');\n"
 
 
-def gen_inning(game, inning):
-    game_id = game
-    inning_id = inning
+def gen_inning(game_id, inning_id, pitcher_id):
     out_count = 3
-    inning_section = 2
-    return f"INSERT INTO inning VALUES ({game_id}, {inning_id}, {out_count}, {inning_section});\n"
+    return f"INSERT INTO inning VALUES ({game_id}, {pitcher_id}, {inning_id}, {out_count});\n"
 
 
 def gen_pitcher(pitcher_id):
