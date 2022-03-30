@@ -89,7 +89,7 @@ From play p
 Group By pitcherID);
 
 -- balls per pitch type
-CREATE OR REPLACE VIEW pitcher_strikes_pitchType AS (
+CREATE OR REPLACE VIEW pitcher_balls_pitchType AS (
 Select pitcherID,
   Sum(case when pitchType = 'Fastball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallFastball,
   Sum(case when pitchType = 'Curveball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCurveball,
@@ -224,3 +224,113 @@ Select GameID, inningID,
   COUNT(case when pitchType = 'Splitter' THEN 1 ELSE NULL END) As Splitter
 From play p
 Group By GameID, inningID);
+
+--Trigger to update NumPitches to NumPitches++ of the inning after a pitch is thrown. Game updated TotalPitches as well
+CREATE OR REPLACE TRIGGER AutoUpPitchCount
+AFTER INSERT ON play
+    FOR EACH ROW BEGIN
+    
+        --Update for Inning
+        UPDATE inning
+        SET numPitches = numPitches + 1
+        WHERE gameID = :NEW.gameID AND inningID = :NEW.inningID AND playerID = :NEW.pitcherID;
+        
+        --Update for Game
+        UPDATE game
+        SET cumulativePitches = cumulativePitches + 1
+        WHERE gameID = :NEW.gameID;
+    END;
+    
+--If pitch is deleted, down the pitch count for the inning
+CREATE OR REPLACE TRIGGER AutoDownOnDeletePitch
+AFTER DELETE ON play
+    FOR EACH ROW BEGIN
+        
+        --Update for Inning
+        UPDATE inning
+        SET NumPitches = NumPitches - 1
+        WHERE gameID = :OLD.gameID AND inningID = :OLD.inningID AND playerID = :OLD.pitcherID;
+        
+        --Update for Game
+        UPDATE game
+        SET cumulativePitches = cumulativePitches - 1
+        WHERE GameID = :OLD.GameID;
+    END;
+    
+--Called after new pitcher is replaced (Can be during an inning or after), which stores a new player with the same Inning and GameID as the previous pitcher
+CREATE OR REPLACE TRIGGER UpGamesPlayed
+AFTER INSERT ON inning
+    FOR EACH ROW 
+    DECLARE numPitchesThrownInGame INT;
+    BEGIN
+    --Check if the new pitcher has pitched in the game
+    SELECT COUNT(*) into numpitchesthrowningame 
+    FROM play 
+    WHERE :NEW.gameID = gameID AND :NEW.playerID = pitcherID ORDER BY pitcherID;
+    IF(numPitchesThrownInGame = 0) THEN
+        --Update GamesPlayed + 1
+        UPDATE pitcher
+        SET gamesPlayed = gamesPlayed + 1
+        WHERE :New.playerID = playerID;
+        END IF;
+    END;
+
+CREATE OR REPLACE TRIGGER UpOutsOnPitchCount
+AFTER INSERT ON play
+    FOR EACH ROW
+    BEGIN
+    IF(:NEW.pitchCount = 03 OR :NEW.pitchCount = 13 OR :NEW.pitchCount = 23 OR :NEW.pitchCount = 33) THEN
+        UPDATE inning
+        SET outs = outs + 1
+        WHERE :NEW.pitcherID = playerID AND :NEW.inningID = inningID AND :NEW.gameID = gameID;
+    END IF;
+    END;
+        
+-- **********************************************************************************************************************  
+-- FULL TEST SUITE FOR TRIGGERS
+-- **********************************************************************************************************************
+--Test Pitchers
+INSERT INTO pitcher VALUES(157,'TestFirtName','TestLastName', 1, 0);
+INSERT INTO pitcher VALUES(203,'Baseball','Pitcher', 2, 0);
+INSERT INTO pitcher VALUES(379,'SJU','Baseball', 3, 0);
+
+--Test Game
+INSERT INTO game VALUES(999, 'St. Thomas', to_date('2022-03-28','YYYY-MM-DD'), 0);
+
+--START INNING w/ PITCHER
+INSERT INTO inning VALUES(999, 1, 157, 0, 0);
+SELECT * FROM inning where gameID = 999;
+--Should return 1 as the pitcher is now in the game for their first in the inning
+SELECT gamesPlayed FROM pitcher WHERE playerID = 157;
+
+--THROW PITCHES
+INSERT INTO play VALUES(157, 999, 1,'FB', 1, 96, 01, '0');
+INSERT INTO play VALUES(157, 999, 1, 'FB', 1, 78, 02, '0');
+INSERT INTO play VALUES(157, 999, 1, 'SLD', 1, 60, 03, '0');
+SELECT * FROM play WHERE gameID = 999;
+
+--Game and Inning both return 3 in their pitch count. Outs should be 1
+SELECT numPitches,outs FROM inning WHERE gameID = 999;
+SELECT cumulativePitches FROM GAME WHERE gameID = 999;
+
+--Put in a same pitcher for the next inning, should return gamesPlayed as 1, not 2
+INSERT INTO inning VALUES(999,2,157, 0, 0);
+SELECT gamesPlayed FROM pitcher WHERE playerID = 157;
+
+--Put in new pitcher for same inning, should return 1 GamesPlayed for pitcher 1 and 2 and 0 GamesPlayed for pitcher 3
+INSERT INTO inning VALUES(999,'2', 203, 0, 0);
+SELECT playerID,gamesPlayed FROM pitcher where playerID = 157 OR playerID = 203 OR playerID = 379;
+
+--DELETE test pitches, numPitches and cumulativePitches should go down by 3 in inning 1
+DELETE FROM play where pitcherID = 157 AND gameID=999;
+SELECT numPitches FROM inning WHERE inningID = 1 AND gameID = 999;
+SELECT cumulativePitches FROM GAME WHERE GameID = 999;
+
+--Remove test data
+DELETE FROM inning WHERE gameID = 999;
+DELETE FROM game WHERE gameID = 999;
+DELETE FROM pitcher WHERE playerID = 157;
+DELETE FROM pitcher WHERE playerID = 203;
+DELETE FROM pitcher WHERE playerID = 379;
+
+-- **********************************************************************************************************************
