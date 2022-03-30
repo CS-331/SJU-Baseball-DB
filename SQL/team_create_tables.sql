@@ -11,7 +11,6 @@ CREATE TABLE inning (
   inningID NUMBER(2,0) NOT NULL CHECK(inningID >= 0),
   PlayerID NUMBER NOT NULL,
   outs NUMBER(1,0) CHECK(outs >= 0),
-  status NUMBER,
   numPitches NUMBER
   PRIMARY KEY(gameID, inningID, PlayerID)
 );
