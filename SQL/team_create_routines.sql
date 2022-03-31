@@ -3,36 +3,36 @@
 -- strikes per pitch type (hit, strike, foul, ball)
 CREATE OR REPLACE VIEW game_strikes_pitchType AS (
 Select GameID,
-  Sum(case when pitchType = 'Fastball' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerFastball,
-  Sum(case when pitchType = 'Curveball' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCurveball,
-  Sum(case when pitchType = 'Slider' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSlider,
-  Sum(case when pitchType = 'Cutter' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCutter,
-  Sum(case when pitchType = 'Change Up' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerChangeUp,
-  Sum(case when pitchType = 'Splitter' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSplitter
+  Sum(case when pitchType = 'FB' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerFastball,
+  Sum(case when pitchType = 'CRV' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCurveball,
+  Sum(case when pitchType = 'SLD' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSlider,
+  Sum(case when pitchType = 'CTR' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCutter,
+  Sum(case when pitchType = 'CU' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerChangeUp,
+  Sum(case when pitchType = 'SPL' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSplitter
 From play p
 Group By GameID);
 
 -- balls per pitch type
 CREATE OR REPLACE VIEW game_balls_pitchType AS (
 Select GameID,
-  Sum(case when pitchType = 'Fastball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerFastball,
-  Sum(case when pitchType = 'Curveball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCurveball,
-  Sum(case when pitchType = 'Slider' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSlider,
-  Sum(case when pitchType = 'Cutter' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCutter,
-  Sum(case when pitchType = 'Change Up' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerChangeUp,
-  Sum(case when pitchType = 'Splitter' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSplitter
+  Sum(case when pitchType = 'FB' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerFastball,
+  Sum(case when pitchType = 'CRV' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCurveball,
+  Sum(case when pitchType = 'SLD' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSlider,
+  Sum(case when pitchType = 'CTR' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCutter,
+  Sum(case when pitchType = 'CU' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerChangeUp,
+  Sum(case when pitchType = 'SPL' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSplitter
 From play p
 Group By GameID);
 
 -- speed per pitch type
 CREATE OR REPLACE VIEW game_speed_pitchType AS (
 Select GameID,
-  AVG(case when pitchType = 'Fastball' THEN speed ELSE NULL END) As speedFastball,
-  AVG(case when pitchType = 'Curveball' THEN speed ELSE NULL END) As speedCurveball,
-  AVG(case when pitchType = 'Slider' THEN speed ELSE NULL END) As speedSlider,
-  AVG(case when pitchType = 'Cutter' THEN speed ELSE NULL END) As speedCutter,
-  AVG(case when pitchType = 'Change Up' THEN speed ELSE NULL END) As speedChangeUp,
-  AVG(case when pitchType = 'Splitter' THEN speed ELSE NULL END) As speedSplitter
+  AVG(case when pitchType = 'FB' THEN speed ELSE NULL END) As speedFastball,
+  AVG(case when pitchType = 'CRV' THEN speed ELSE NULL END) As speedCurveball,
+  AVG(case when pitchType = 'SLD' THEN speed ELSE NULL END) As speedSlider,
+  AVG(case when pitchType = 'CTR' THEN speed ELSE NULL END) As speedCutter,
+  AVG(case when pitchType = 'CU' THEN speed ELSE NULL END) As speedChangeUp,
+  AVG(case when pitchType = 'SPL' THEN speed ELSE NULL END) As speedSplitter
 From play p
 Group By GameID);
 
@@ -79,36 +79,36 @@ Group By GameID);
 -- strikes per pitch type (hit, strike, foul, ball)
 CREATE OR REPLACE VIEW pitcher_strikes_pitchType AS (
 Select pitcherID,
-  Sum(case when pitchType = 'Fastball' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerFastball,
-  Sum(case when pitchType = 'Curveball' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCurveball,
-  Sum(case when pitchType = 'Slider' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSlider,
-  Sum(case when pitchType = 'Cutter' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCutter,
-  Sum(case when pitchType = 'Change Up' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerChangeUp,
-  Sum(case when pitchType = 'Splitter' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSplitter
+  Sum(case when pitchType = 'FB' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerFastball,
+  Sum(case when pitchType = 'CRV' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCurveball,
+  Sum(case when pitchType = 'SLD' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSlider,
+  Sum(case when pitchType = 'CTR' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerCutter,
+  Sum(case when pitchType = 'CU' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerChangeUp,
+  Sum(case when pitchType = 'SPL' AND playResult = 'Strike' THEN 1 ELSE 0 END) As strikesPerSplitter
 From play p
 Group By pitcherID);
 
 -- balls per pitch type
 CREATE OR REPLACE VIEW pitcher_balls_pitchType AS (
 Select pitcherID,
-  Sum(case when pitchType = 'Fastball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallFastball,
-  Sum(case when pitchType = 'Curveball' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCurveball,
-  Sum(case when pitchType = 'Slider' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallSlider,
-  Sum(case when pitchType = 'Cutter' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCutter,
-  Sum(case when pitchType = 'Change Up' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallChangeUp,
-  Sum(case when pitchType = 'Splitter' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallSplitter
+  Sum(case when pitchType = 'FB' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallFastball,
+  Sum(case when pitchType = 'CRV' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCurveball,
+  Sum(case when pitchType = 'SLD' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallSlider,
+  Sum(case when pitchType = 'CTR' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallCutter,
+  Sum(case when pitchType = 'CU' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallChangeUp,
+  Sum(case when pitchType = 'SPL' AND playResult = 'Ball' THEN 1 ELSE 0 END) As BallSplitter
 From play p
 Group By pitcherID);
 
 -- speed per pitch type
 CREATE OR REPLACE VIEW pitcher_speed_pitchType AS (
 Select pitcherID,
-  AVG(case when pitchType = 'Fastball' THEN speed ELSE NULL END) As speedFastball,
-  AVG(case when pitchType = 'Curveball' THEN speed ELSE NULL END) As speedCurveball,
-  AVG(case when pitchType = 'Slider' THEN speed ELSE NULL END) As speedSlider,
-  AVG(case when pitchType = 'Cutter' THEN speed ELSE NULL END) As speedCutter,
-  AVG(case when pitchType = 'Change Up' THEN speed ELSE NULL END) As speedChangeUp,
-  AVG(case when pitchType = 'Splitter' THEN speed ELSE NULL END) As speedSplitter
+  AVG(case when pitchType = 'FB' THEN speed ELSE NULL END) As speedFastball,
+  AVG(case when pitchType = 'CRV' THEN speed ELSE NULL END) As speedCurveball,
+  AVG(case when pitchType = 'SLD' THEN speed ELSE NULL END) As speedSlider,
+  AVG(case when pitchType = 'CTR' THEN speed ELSE NULL END) As speedCutter,
+  AVG(case when pitchType = 'CCU' THEN speed ELSE NULL END) As speedChangeUp,
+  AVG(case when pitchType = 'SPL' THEN speed ELSE NULL END) As speedSplitter
 From play p
 Group By pitcherID);
 
@@ -224,6 +224,78 @@ Select GameID, inningID,
   COUNT(case when pitchType = 'Splitter' THEN 1 ELSE NULL END) As Splitter
 From play p
 Group By GameID, inningID);
+
+-- **********************************************************************************************************************  
+-- FULL TEST SUITE FOR VIEWS
+-- **********************************************************************************************************************
+--Test Pitchers
+INSERT INTO pitcher VALUES(157,'TestFirtName','TestLastName', 1, 0);
+INSERT INTO pitcher VALUES(203,'Baseball','Pitcher', 2, 0);
+INSERT INTO pitcher VALUES(379,'SJU','Baseball', 3, 0);
+
+--Test Game
+INSERT INTO game VALUES(999, 'St. Thomas', to_date('2022-03-28','YYYY-MM-DD'), 0);
+
+--START INNING w/ PITCHER
+INSERT INTO inning VALUES(999, 1, 157, 0, 0);
+
+--THROW PITCHES
+INSERT INTO play VALUES(157, 999, 1,'FB', 1, 96, 01, 'Hit');
+INSERT INTO play VALUES(157, 999, 1, 'SPL', 1, 78, 02, 'Strike');
+INSERT INTO play VALUES(157, 999, 1, 'SLD', 1, 60, 03, 'Ball');
+INSERT INTO play VALUES(157, 999, 1,'FB', 1, 96, 04, 'Strike');
+INSERT INTO play VALUES(157, 999, 1, 'FB', 1, 78, 05, 'Strike');
+INSERT INTO play VALUES(157, 999, 1, 'CTR', 1, 60, 06, 'Ball');
+INSERT INTO play VALUES(157, 999, 1,'CU', 1, 96, 07, 'Strike');
+INSERT INTO play VALUES(157, 999, 1, 'FB', 1, 78, 08, 'Hit');
+INSERT INTO play VALUES(157, 999, 1, 'SLD', 1, 60, 09, 'Ball');
+
+INSERT INTO inning VALUES(999,2,157, 0, 0);
+
+INSERT INTO play VALUES(157, 999, 2,'FB', 1, 96, 11, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'FB', 1, 78, 12, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'SPL', 1, 60, 13, 'Ball');
+INSERT INTO play VALUES(157, 999, 2,'FB', 1, 96, 14, 'Strike');
+INSERT INTO play VALUES(157, 999, 2, 'CTR', 1, 78, 15, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'SLD', 1, 60, 16, 'Ball');
+INSERT INTO play VALUES(157, 999, 2,'FB', 1, 96, 17, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'FB', 1, 78, 18, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'CU', 1, 60, 19, 'Ball');
+INSERT INTO play VALUES(157, 999, 2,'FB', 1, 96, 20, 'Strike');
+INSERT INTO play VALUES(157, 999, 2, 'FB', 1, 78, 21, 'Ball');
+INSERT INTO play VALUES(157, 999, 2, 'SPL', 1, 60, 22, 'Hit');
+INSERT INTO play VALUES(157, 999, 2,'FB', 1, 96, 23, 'Hit');
+INSERT INTO play VALUES(157, 999, 2, 'CTR', 1, 78, 24, 'Strike');
+INSERT INTO play VALUES(157, 999, 2, 'SLD', 1, 60, 25, 'Strike');
+INSERT INTO play VALUES(157, 999, 2,'SPL', 1, 96, 26, 'Ball');
+INSERT INTO play VALUES(157, 999, 2, 'CTR', 1, 78, 27, 'Strike');
+INSERT INTO play VALUES(157, 999, 2, 'CU', 1, 60, 28, 'Ball');
+
+INSERT INTO inning VALUES(999,2, 203, 0, 0);
+
+INSERT INTO play VALUES(203, 999, 2,'FB', 1, 96, 01, 'Ball');
+INSERT INTO play VALUES(203, 999, 2, 'CU', 1, 78, 02, 'Hit');
+INSERT INTO play VALUES(203, 999, 2, 'SLD', 1, 60, 03, 'Strike');
+INSERT INTO play VALUES(203, 999, 2,'FB', 1, 96, 04, 'Strike');
+INSERT INTO play VALUES(203, 999, 2, 'FB', 1, 78, 05, 'Hit');
+INSERT INTO play VALUES(203, 999, 2, 'CTR', 1, 60, 06, 'Ball');
+INSERT INTO play VALUES(203, 999, 2,'FB', 1, 96, 07, 'Hit');
+INSERT INTO play VALUES(203, 999, 2, 'SPL', 1, 78, 08, 'Hit');
+INSERT INTO play VALUES(203, 999, 2, 'SLD', 1, 60, 09, 'Strike');
+
+-- strikes per pitch type (hit, strike, foul, ball)
+SELECT * FROM game_strikes_pitchType;
+
+-- balls per pitch type
+SELECT * FROM game_balls_pitchType;
+
+-- speed per pitch type
+SELECT * FROM game_speed_pitchType;
+
+-- percentage of pitches resulting in ball
+SELECT * FROM game_pitch_ball_percentage;
+
+
 
 --Trigger to update NumPitches to NumPitches++ of the inning after a pitch is thrown. Game updated TotalPitches as well
 CREATE OR REPLACE TRIGGER AutoUpPitchCount
