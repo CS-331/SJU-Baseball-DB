@@ -15,12 +15,12 @@ Group By GameID);
 -- balls per pitch type
 CREATE OR REPLACE VIEW game_balls_pitchType AS (
 Select GameID,
-  Sum(case when pitchType = 'FB' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerFastball,
-  Sum(case when pitchType = 'CRV' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCurveball,
-  Sum(case when pitchType = 'SLD' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSlider,
-  Sum(case when pitchType = 'CTR' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerCutter,
-  Sum(case when pitchType = 'CU' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerChangeUp,
-  Sum(case when pitchType = 'SPL' AND playResult = 'Ball' THEN 1 ELSE 0 END) As strikesPerSplitter
+  Sum(case when pitchType = 'FB' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerFastball,
+  Sum(case when pitchType = 'CRV' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerCurveball,
+  Sum(case when pitchType = 'SLD' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerSlider,
+  Sum(case when pitchType = 'CTR' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerCutter,
+  Sum(case when pitchType = 'CU' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerChangeUp,
+  Sum(case when pitchType = 'SPL' AND playResult = 'Ball' THEN 1 ELSE 0 END) As ballsPerSplitter
 From play p
 Group By GameID);
 
