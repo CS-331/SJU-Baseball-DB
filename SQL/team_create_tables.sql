@@ -30,6 +30,7 @@ CREATE TABLE pitcher (
 
 --PlayResult = Hit-out, Hit-in, Foul Ball, K = Strikeout, Walk, 0 = pitch did not result in play
 --pitchCount = starts at 00 -> 01 for strike, 10 for ball, (ball)3 for strikeout, 4(strike) for walk
+-- pitch types: FB -> Fastball, CRV -> Curveball, SLD -> Slider, CTR -> Cutter, SPL -> Splitter
 CREATE TABLE play (
   pitcherID NUMBER NOT NULL,
   gameID NUMBER NOT NULL,
