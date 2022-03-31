@@ -152,13 +152,6 @@ Group By pitcherID);
 
 /* lastly for each inning we want a view of the following information */
 
--- Number of pitches thrown
-CREATE OR REPLACE VIEW inning_count_pitches AS (
-Select GameID, inningID,
-  COUNT(*) As count
-From play p
-Group By GameID, inningID);
-
 -- strikes per pitch type (hit, strike, foul, ball)
 CREATE OR REPLACE VIEW inning_strikes_pitchType AS (
 Select GameID, inningID,
@@ -200,30 +193,6 @@ CREATE OR REPLACE VIEW inning_pitch_ball_percentage AS (
 Select GameID, inningID, (COUNT(case when playResult = 'Ball' THEN 1 END)/COUNT(*)) AS pitchBall
 From play p
 Group By GameID,inningID);
-
--- percentage of pitches resulting in strike
-CREATE OR REPLACE VIEW inning_pitch_strike_percentage AS (
-Select GameID, inningID, (COUNT(case when playResult = 'Strike' THEN 1 END)/COUNT(*)) AS pitchStrike
-From play p
-Group By GameID, inningID);
-
--- percentage of pitches resulting in hit
-CREATE OR REPLACE VIEW inning_hit_percentage AS (
-Select GameID, inningID, (COUNT(case when playResult = 'Hit' THEN 1 END)/COUNT(*)) AS pitchHit
-From play p
-Group By GameID, inningID);
-
--- Counts of each pitch type
-CREATE OR REPLACE VIEW inning_count_pitchType AS (
-Select GameID, inningID,
-  COUNT(case when pitchType = 'Fastball' THEN 1 ELSE NULL END) As Fastball,
-  COUNT(case when pitchType = 'Curveball' THEN 1 ELSE NULL END) As Curveball,
-  COUNT(case when pitchType = 'Slider' THEN 1 ELSE NULL END) As Slider,
-  COUNT(case when pitchType = 'Cutter' THEN 1 ELSE NULL END) As Cutter,
-  COUNT(case when pitchType = 'Change Up' THEN 1 ELSE NULL END) As ChangeUp,
-  COUNT(case when pitchType = 'Splitter' THEN 1 ELSE NULL END) As Splitter
-From play p
-Group By GameID, inningID);
 
 -- **********************************************************************************************************************  
 -- FULL TEST SUITE FOR VIEWS
@@ -295,7 +264,37 @@ SELECT * FROM game_speed_pitchType;
 -- percentage of pitches resulting in ball
 SELECT * FROM game_pitch_ball_percentage;
 
+SELECT * FROM game_count_pitchtype;
 
+SELECT * FROM game_pitch_strike_percentage;
+
+SELECT * FROM inning_balls_pitchtype;
+
+Select * FROM inning_Strikes_pitchtype;
+
+SELECT * from inning_pitch_ball_percentage;
+Select * from inning_speed_pitchtype;
+
+SELECT * FROM pitcher_balls_pitchtype;
+
+SELECT * FROM pitcher_count_pitches;
+
+SELECT * FROM pitcher_count_pitchtype;
+
+SELECT * FROM pitcher_hit_percentage;
+
+SELECT * FROM pitcher_pitch_ball_percentage;
+
+SELECT * FROM pitcher_pitch_strike_percentage;
+
+SELECT * FROM pitcher_speed_pitchtype;
+
+SELECT * FROM pitcher_strikes_pitchtype;
+
+DELETE FROM game;
+DELETE FROM pitcher;
+DELETE FROM play;
+DELETE FROM inning;
 
 --Trigger to update NumPitches to NumPitches++ of the inning after a pitch is thrown. Game updated TotalPitches as well
 CREATE OR REPLACE TRIGGER AutoUpPitchCount
