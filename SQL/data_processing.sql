@@ -1,3 +1,18 @@
+--Query 1 - Get strike, ball, and hit percentage for a game
+SELECT b.gameID, b.pitchball as BallPercentage, s.pitchstrike as StrikePercentage, p.pitchhit as HitPercentage
+FROM GAME_PITCH_BALL_PERCENTAGE b, GAME_PITCH_STRIKE_PERCENTAGE s, GAME_HIT_PERCENTAGE p
+WHERE b.gameID = s.gameID;
+
+--Query 2 - Get a pitchers stats for the inning
+SELECT b.*, s.*
+FROM inning_balls_pitchtype b, inning_strikes_pitchtype s
+WHERE b.gameID = s.gameID AND b.inningID = s.inningID;
+
+--Query 3 - Which inning in a game has the highest ball percentage
+SELECT gameID as GAME, inningID as INNING, pitchball as BallPercentage
+FROM inning_pitch_ball_percentage
+WHERE pitchball >= ALL (SELECT pitchball from INNING_PITCH_BALL_PERCENTAGE);
+
 -- GET GAME THAT HAS THE MOST STRIKES FOR FASTBALLS
 SELECT GAMEID, STRIKESPERFASTBALL
 FROM GAME_STRIKES_PITCHTYPE G1
