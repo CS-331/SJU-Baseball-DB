@@ -2,6 +2,7 @@ drop table play;
 drop table inning;
 drop table pitcher;
 drop table game;
+drop table login;
 CREATE TABLE Game (
     GameID NUMBER NOT NULL,
     OpposingTeam VARCHAR(20),
@@ -42,6 +43,17 @@ CREATE TABLE play (
   playResult VARCHAR(15),
   PRIMARY KEY(pitcherID, gameID, pitchCount, inningID)
 );
+
+CREATE TABLE login (
+  username varchar(45) NOT NULL,
+  pass varchar(45) DEFAULT NULL,
+  firstname varchar(45) NOT NULL,
+  lastname varchar(45) NOT NULL,
+  PRIMARY KEY (username)
+);
+
+INSERT INTO login VALUES('phesse001', 'test', 'Patrick', 'Hesse');
+INSERT INTO login VALUES('uname', 'pass', 'elon', 'tusk');
 
 ALTER TABLE inning
 ADD CONSTRAINT fk_game_inning
