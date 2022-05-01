@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page errorPage = "errorPage.jsp" %>
 <jsp:useBean id="user" class="login.User" scope="session" />
  <jsp:setProperty name="user" property="*"/> 
 <!DOCTYPE html>
@@ -11,11 +10,10 @@
     <body>
         <%
           session.setMaxInactiveInterval(1800);  // 30 minute time out
-          user.login("Your username", "Your Password");
+          user.login("", "");
           if(user.isLoggedIn())
           {
-            out.println("Hello "+user.getFirstName()+" "+user.getLastName()+"<br/>");
-          	response.sendRedirect("home.jsp");
+          	response.sendRedirect("menu");
           }
           else
           {

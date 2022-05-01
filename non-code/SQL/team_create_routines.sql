@@ -204,6 +204,7 @@ INSERT INTO pitcher VALUES(379,'SJU','Baseball', 3, 0);
 
 --Test Game
 INSERT INTO game VALUES(999, 'St. Thomas', to_date('2022-03-28','YYYY-MM-DD'), 0);
+INSERT INTO game VALUES(1000, 'other team', to_date('2022-02-28','YYYY-MM-DD'), 0);
 
 --START INNING w/ PITCHER
 INSERT INTO inning VALUES(999, 1, 157, 0, 0);

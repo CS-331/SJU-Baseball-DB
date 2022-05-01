@@ -49,11 +49,12 @@ CREATE TABLE login (
   pass varchar(45) DEFAULT NULL,
   firstname varchar(45) NOT NULL,
   lastname varchar(45) NOT NULL,
+  usertype number(1) NOT NULL,
   PRIMARY KEY (username)
 );
 
-INSERT INTO login VALUES('phesse001', 'test', 'Patrick', 'Hesse');
-INSERT INTO login VALUES('uname', 'pass', 'elon', 'tusk');
+INSERT INTO login VALUES('phesse001', 'test', 'Patrick', 'Hesse', 0);
+INSERT INTO login VALUES('uname', 'pass', 'elon', 'tusk', 1);
 
 ALTER TABLE inning
 ADD CONSTRAINT fk_game_inning

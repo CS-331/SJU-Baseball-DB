@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Scanner;
 
 /**
  *
- * @author mpenderg
+ * 
  */
 public class User {
     String firstName = "";
@@ -45,7 +44,7 @@ public class User {
       return lastName;
     }
   
-   public void setLasttName(String l)
+   public void setLastName(String l)
    {
      lastName = l;
    }
@@ -78,19 +77,14 @@ public class User {
    public boolean login(String db_username, String db_password)
    {     
         try{
-         // open a connection
           Connection con = null;
           Class.forName("oracle.jdbc.OracleDriver");  // load the driver
-          con = DriverManager.getConnection("jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/" + "csci.cscioraclerh7srv.ad.csbsju.edu", db_username, db_password);
+          con = DriverManager.getConnection("jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu", db_username, db_password);
      
-      // create the sql command
           String queryString = "select lastname, firstname, usertype from login where username=? and pass=? ";
-          System.out.println(queryString);
           PreparedStatement prep = con.prepareStatement(queryString); 
           prep.setString(1,id);
           prep.setString(2,password);
-          
-          System.out.println(prep.toString());
        
           ResultSet rs  = prep.executeQuery();
           if(rs.next())
@@ -106,8 +100,9 @@ public class User {
           con.close();
          
          }
-        catch(Exception sqlex)
+        catch(Exception e)
         {
+          e.printStackTrace();
           loggedIn = false; 
         } 
        
