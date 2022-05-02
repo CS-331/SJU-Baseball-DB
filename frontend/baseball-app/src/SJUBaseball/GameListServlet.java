@@ -30,7 +30,10 @@ public class GameListServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ServletException(e);
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 }

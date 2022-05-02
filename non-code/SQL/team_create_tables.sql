@@ -4,20 +4,20 @@ drop table pitcher;
 drop table game;
 drop table login;
 CREATE TABLE Game (
-    GameID NUMBER NOT NULL,
     OpposingTeam VARCHAR(20),
-    GameDate DATE,
+    GameDate VARCHAR(10),
     cumulativePitches NUMBER,
-  	PRIMARY KEY(gameID)
+  	PRIMARY KEY(OpposingTeam,GameDate)
 );
 
 CREATE TABLE inning (
-  gameID NUMBER NOT NULL,
+  OpposingTeam VARCHAR(20),
+  GameDate VARCHAR(10),
   inningID NUMBER(2,0) NOT NULL CHECK(inningID >= 0),
   PlayerID NUMBER NOT NULL,
   outs NUMBER(1,0) CHECK(outs >= 0),
   numPitches NUMBER,
-  PRIMARY KEY(gameID, inningID, PlayerID)
+  PRIMARY KEY(OpposingTeam, GameDate, inningID, PlayerID)
 );
 
 CREATE TABLE pitcher (
@@ -34,14 +34,15 @@ CREATE TABLE pitcher (
 -- pitch types: FB -> Fastball, CRV -> Curveball, SLD -> Slider, CTR -> Cutter, SPL -> Splitter
 CREATE TABLE play (
   pitcherID NUMBER NOT NULL,
-  gameID NUMBER NOT NULL,
+  OpposingTeam VarChar(20),
+  GameDate VARCHAR(10),
   inningID NUMBER(2,0) NOT NULL CHECK(inningID >= 0),
   pitchType VARCHAR(15) NOT NULL,
   strike NUMBER(1,0) CHECK(strike >= 0),
   speed NUMBER CHECK(speed >= 0),
   pitchCount NUMBER(5,0),
   playResult VARCHAR(15),
-  PRIMARY KEY(pitcherID, gameID, pitchCount, inningID)
+  PRIMARY KEY(pitcherID, OpposingTeam, GameDate, pitchCount, inningID)
 );
 
 CREATE TABLE login (
@@ -58,12 +59,12 @@ INSERT INTO login VALUES('uname', 'pass', 'elon', 'tusk', 1);
 
 ALTER TABLE inning
 ADD CONSTRAINT fk_game_inning
-FOREIGN KEY (gameID) REFERENCES game(gameID) ON DELETE CASCADE;
+FOREIGN KEY (OpposingTeam,GameDate) REFERENCES game(OpposingTeam,GameDate) ON DELETE CASCADE;
 ALTER TABLE inning
 ADD CONSTRAINT fk_pitcher_inning
 FOREIGN KEY (PlayerID) REFERENCES pitcher(playerID) ON DELETE CASCADE;
 /* add play foreign key (game, inningID, playerID) */
 ALTER TABLE play
 ADD CONSTRAINT fk_play_inning
-FOREIGN KEY (gameID, inningID, pitcherID) REFERENCES inning(gameID, inningID, playerID) ON DELETE CASCADE;
+FOREIGN KEY (OpposingTeam, GameDate, inningID, pitcherID) REFERENCES inning(OpposingTeam, GameDate, inningID, playerID) ON DELETE CASCADE;
 
