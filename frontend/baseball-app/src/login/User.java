@@ -77,8 +77,15 @@ public class User {
    public boolean login()
    {     
 	    String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
-	    String user = "";
-	    String pass = "";
+	    String user = "phesse001";
+	    String pass = "900234593";
+	    try {
+        	Class.forName("oracle.jdbc.OracleDriver");
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
         try(Connection connection = DriverManager.getConnection(databaseURL, user, pass)){
      
           String queryString = "select lastname, firstname, usertype from login where username=? and pass=? ";

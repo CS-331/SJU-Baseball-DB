@@ -13,13 +13,19 @@ import java.util.List;
 public class GameDAO {
 	// info for connecting to the database
     String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
-    String user = "";
-    String password = "";
+    String user = "phesse001";
+    String password = "900234593";
      
     public List<Game> getGames() throws SQLException {
     	// an array list that will be populated with game objects that are created using jdbc
         List<Game> gameList = new ArrayList<>();
-         
+        try {
+        	Class.forName("oracle.jdbc.OracleDriver");
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
             String sql = "select * from game";
             Statement statement = connection.createStatement();
