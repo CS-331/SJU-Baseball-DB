@@ -7,9 +7,13 @@ public class Play {
 	int inningId;
 	String pitchType;
 	int strike;
-	int speed;
+	float speed;
 	int pitchCount;
 	String playResult;
+	
+	public Play() {
+		;
+	}
 	
 	public Play(int pitcherId, int gameId, int inningId, String pitchType, int strike, int speed, int pitchCount, String playResult)
 	{
@@ -69,11 +73,11 @@ public class Play {
 		this.strike = strike;
 	}
 	
-	public int getSpeed()
+	public float getSpeed()
 	{
 		return this.speed;
 	}
-	public void setSpeed(int speed)
+	public void setSpeed(float speed)
 	{
 		this.speed = speed;
 	}
