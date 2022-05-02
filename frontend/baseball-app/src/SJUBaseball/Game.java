@@ -16,7 +16,11 @@ public class Game {
         this.cumulativePitches = cumulativePitches;
     }
  
-    public int getGameId() {
+    public Game() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getGameId() {
         return this.gameId;
     }
  

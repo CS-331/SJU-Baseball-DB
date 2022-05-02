@@ -5,10 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- *
- * 
- */
 public class User {
     String firstName = "";
     String lastName = "";
@@ -79,15 +75,15 @@ public class User {
 	    String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
 	    String user = "phesse001";
 	    String pass = "900234593";
-	    try {
-        	Class.forName("oracle.jdbc.OracleDriver");
-        }
-        catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
-        try(Connection connection = DriverManager.getConnection(databaseURL, user, pass)){
-     
+	    
+        try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+        
+        try {
+          Connection connection = DriverManager.getConnection(databaseURL, user, pass);
           String queryString = "select lastname, firstname, usertype from login where username=? and pass=? ";
           PreparedStatement prep = connection.prepareStatement(queryString); 
           prep.setString(1,id);

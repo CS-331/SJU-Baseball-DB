@@ -16,17 +16,13 @@ public class GameDAO {
     String user = "phesse001";
     String password = "900234593";
      
-    public List<Game> getGames() throws SQLException {
+    public List<Game> getGames() throws SQLException, ClassNotFoundException {
     	// an array list that will be populated with game objects that are created using jdbc
         List<Game> gameList = new ArrayList<>();
+        
         try {
-        	Class.forName("oracle.jdbc.OracleDriver");
-        }
-        catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
-        try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection connection = DriverManager.getConnection(databaseURL, user, password);
             String sql = "select * from game";
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
