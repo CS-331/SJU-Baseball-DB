@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="user" class="login.User" scope="session" />
- <jsp:setProperty name="user" property="*"/> 
+<jsp:setProperty name="user" property="*"/> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,10 +10,18 @@
     <body>
         <%
           session.setMaxInactiveInterval(1800);  // 30 minute time out
-          user.login("", "");
+          user.login();
           if(user.isLoggedIn())
           {
-          	response.sendRedirect("menu");
+        	  if(user.getType() == 1)
+        	  {
+        		  response.sendRedirect("player-home.jsp");
+        	  }
+        	  else
+        	  {
+        		  response.sendRedirect("coach-home.jsp");
+        	  }
+          	
           }
           else
           {

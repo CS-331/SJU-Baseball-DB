@@ -24,7 +24,7 @@ public class GameListServlet extends HttpServlet {
             List<Game> gameList = dao.getGames();
             request.setAttribute("gameList", gameList);
  
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("game-selection.jsp");
             dispatcher.forward(request, response);
  
         } catch (SQLException e) {

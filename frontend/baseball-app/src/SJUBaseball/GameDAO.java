@@ -33,7 +33,8 @@ public class GameDAO {
                 
                 Game game = new Game(gameID, opposingTeam, date, numPitches);
                 gameList.add(game);
-            }          
+            }
+            connection.close();
              
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -68,7 +69,8 @@ public class GameDAO {
                 Play play = new Play(pitcherId, gId, inningId, pitchType, strike, speed, pitchCount, playResult);
                 
                 playList.add(play);
-            }          
+            }  
+            connection.close();
              
         } catch (SQLException ex) {
             ex.printStackTrace();

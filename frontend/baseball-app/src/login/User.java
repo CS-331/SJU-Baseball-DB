@@ -74,15 +74,15 @@ public class User {
    }
    
   
-   public boolean login(String db_username, String db_password)
+   public boolean login()
    {     
-        try{
-          Connection con = null;
-          Class.forName("oracle.jdbc.OracleDriver");  // load the driver
-          con = DriverManager.getConnection("jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu", db_username, db_password);
+	    String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
+	    String user = "";
+	    String pass = "";
+        try(Connection connection = DriverManager.getConnection(databaseURL, user, pass)){
      
           String queryString = "select lastname, firstname, usertype from login where username=? and pass=? ";
-          PreparedStatement prep = con.prepareStatement(queryString); 
+          PreparedStatement prep = connection.prepareStatement(queryString); 
           prep.setString(1,id);
           prep.setString(2,password);
        
@@ -97,7 +97,7 @@ public class User {
           else
             loggedIn = false;
           prep.close();
-          con.close();
+          connection.close();
          
          }
         catch(Exception e)

@@ -6,7 +6,10 @@
 
 <jsp:useBean id="game" class="SJUBaseball.GameDAO" scope="session" />
 <jsp:setProperty name="game" property="*"/> 
-    
+
+<jsp:useBean id="user" class="login.User" scope="session" />
+<jsp:setProperty name="user" property="*"/>    
+ 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,7 +17,7 @@
 </head>
 <body>
 <div align="center">
-    <h2>Game List</h2>
+    <h2>Game List {user.getType()}</h2>
     <form action="pitches" method="get">
         Select a Game:&nbsp;
         <select name="game">
@@ -26,7 +29,11 @@
                 </option>
             </c:forEach>
         </select>
-        <br/><br/>
+        <select name="option">
+            <option value="option1">1</option>
+            <option value="option2">2</option>
+          
+        </select>
         <input type="submit" value="Submit" />
     </form>
 </div>
