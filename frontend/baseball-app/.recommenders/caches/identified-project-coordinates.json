@@ -1,1 +1,1 @@
-[[{"location":"/usr/lib/jvm/java-1.8.0-oracle-1.8.0.181-1jpp.2.el7.x86_64","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
+[[{"location":"/usr/lib/jvm/java-1.8.0-oracle-1.8.0.181-1jpp.2.el7.x86_64","type":"JRE","hints":{}},"jre:jre:1.8.0"],[{"location":"/opt/tomcat/apache-tomcat-8.5.61/lib/servlet-api.jar","type":"JAR","hints":{}},"ABSENT"]]

@@ -13,8 +13,8 @@ import java.util.List;
 public class GameDAO {
 	// info for connecting to the database
     String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
-    String user = "phesse001";
-    String password = "900234593";
+    String user = "";
+    String password = "";
      
     public List<Game> getGames() throws SQLException, ClassNotFoundException {
     	// an array list that will be populated with game objects that are created using jdbc
@@ -28,12 +28,11 @@ public class GameDAO {
             ResultSet result = statement.executeQuery(sql);
              
             while (result.next()) {
-                int gameID = result.getInt("GameID");
                 String opposingTeam = result.getString("OpposingTeam");
-                Date date = result.getDate("GameDate");
+                String date = result.getString("GameDate");
                 int numPitches = result.getInt("cumulativePitches");
                 
-                Game game = new Game(gameID, opposingTeam, date, numPitches);
+                Game game = new Game(opposingTeam, date, numPitches);
                 gameList.add(game);
             }
             connection.close();
@@ -46,21 +45,22 @@ public class GameDAO {
         return gameList;
     }
     
-    public List<Play> getGamePlays(int gameId) throws SQLException
+    public List<Play> getGamePlays(String opposingTeam, String date) throws SQLException
     {
     	// an array list that will be populated with game objects that are created using jdbc
         List<Play> playList = new ArrayList<>();
          
         try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
-            String queryString = "select * from play where gameID = ?";
+            String queryString = "select * from play where OpposingTeam = ? and GameDate = ?";
             PreparedStatement prep = connection.prepareStatement(queryString); 
-            prep.setInt(1,gameId);
+            prep.setString(1,opposingTeam);
+            prep.setString(2, date);
          
             ResultSet result  = prep.executeQuery();
              
             while (result.next()) {
-            	
-                int gId = result.getInt("gameID");
+            	String team= result.getString("OpposingTeam");
+            	String d = result.getString("GameDate");
                 int pitcherId = result.getInt("pitcherID");
                 int inningId = result.getInt("inningID");
                 String pitchType = result.getString("pitchType");
@@ -68,7 +68,7 @@ public class GameDAO {
                 int speed = result.getInt("speed");
                 int pitchCount = result.getInt("pitchCount");
                 String playResult = result.getString("playResult");
-                Play play = new Play(pitcherId, gId, inningId, pitchType, strike, speed, pitchCount, playResult);
+                Play play = new Play(team, d, pitcherId, inningId, pitchType, strike, speed, pitchCount, playResult);
                 
                 playList.add(play);
             }  
@@ -80,5 +80,33 @@ public class GameDAO {
         }      
          
         return playList;
+    }
+    
+    public List<String> getDatesFromGame(String opposingTeam) throws SQLException
+    {
+    	// an array list that will be populated with game objects that are created using jdbc
+        List<String> dateList = new ArrayList<>();
+         
+        try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
+            String queryString = "select GameDate from game where OpposingTeam = ?";
+            PreparedStatement prep = connection.prepareStatement(queryString); 
+            prep.setString(1,opposingTeam);
+         
+            ResultSet result  = prep.executeQuery();
+             
+            while (result.next()) {
+            	
+                String date = result.getString("GameDate");
+                
+                dateList.add(date);
+            }  
+            connection.close();
+             
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw ex;
+        }      
+         
+        return dateList;
     }
 }

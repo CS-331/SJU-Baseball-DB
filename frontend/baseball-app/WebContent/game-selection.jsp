@@ -4,8 +4,6 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="game" class="SJUBaseball.GameDAO" scope="session" />
-<jsp:setProperty name="game" property="*"/> 
 
 <jsp:useBean id="user" class="login.User" scope="session" />
 <jsp:setProperty name="user" property="*"/>    
@@ -17,7 +15,7 @@
 </head>
 <body>
 <div align="center">
-    <h2>Game List {user.getType()}</h2>
+    <h2>Select A Game</h2>
     <form action="pitches" method="get">
         Select a Game:&nbsp;
         <select name="game">
@@ -29,9 +27,15 @@
                 </option>
             </c:forEach>
         </select>
+        
+        <label>Date (YYYY-MM-DD): <input type="text" name="gameDate"/></label>
+        
         <select name="option">
             <option value="option1">1</option>
             <option value="option2">2</option>
+            <c:if test="${user.getType() == 1}">
+            <option value="option2">3</option>
+            </c:if>
           
         </select>
         <input type="submit" value="Submit" />

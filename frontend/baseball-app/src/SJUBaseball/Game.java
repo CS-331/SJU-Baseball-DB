@@ -1,16 +1,12 @@
 package SJUBaseball;
 
-import java.util.Date;
 
 public class Game {
-    private int gameId;
     private String opposingTeam;
-    private Date date;
+    private String date;
     private int cumulativePitches;
  
-    public Game(int gameId, String opposingTeam, Date date, int cumulativePitches) {
-    	super();
-        this.gameId = gameId;
+    public Game(String opposingTeam, String date, int cumulativePitches) {
         this.opposingTeam = opposingTeam;
         this.date = date;
         this.cumulativePitches = cumulativePitches;
@@ -19,14 +15,6 @@ public class Game {
     public Game() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public int getGameId() {
-        return this.gameId;
-    }
- 
-    public void setId(int id) {
-        this.gameId = id;
-    }
  
     public String getOpposingTeam() {
         return this.opposingTeam;
@@ -36,11 +24,11 @@ public class Game {
         this.opposingTeam = name;
     }
     
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
  
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     

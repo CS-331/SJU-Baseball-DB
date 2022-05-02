@@ -13,14 +13,7 @@
           user.login();
           if(user.isLoggedIn())
           {
-        	  if(user.getType() == 1)
-        	  {
-        		  response.sendRedirect("player-home.jsp");
-        	  }
-        	  else
-        	  {
-        		  response.sendRedirect("coach-home.jsp");
-        	  }
+        	  response.sendRedirect("home.jsp");
           	
           }
           else

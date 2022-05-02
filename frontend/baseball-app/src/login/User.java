@@ -73,8 +73,8 @@ public class User {
    public boolean login()
    {     
 	    String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
-	    String user = "phesse001";
-	    String pass = "900234593";
+	    String user = "";
+	    String pass = "";
 	    
         try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

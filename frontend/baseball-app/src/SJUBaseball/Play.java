@@ -3,7 +3,8 @@ package SJUBaseball;
 public class Play {
 	
 	int pitcherId;
-	int gameId;
+	String opposingTeam;
+	String date;
 	int inningId;
 	String pitchType;
 	int strike;
@@ -12,13 +13,14 @@ public class Play {
 	String playResult;
 	
 	public Play() {
-		;
+		
 	}
 	
-	public Play(int pitcherId, int gameId, int inningId, String pitchType, int strike, int speed, int pitchCount, String playResult)
+	public Play(String opposingTeam, String date, int pitcherId, int inningId, String pitchType, int strike, int speed, int pitchCount, String playResult)
 	{
 		this.pitcherId = pitcherId;
-		this.gameId = gameId;
+		this.opposingTeam = opposingTeam;
+		this.date = date;
 		this.inningId = inningId;
 		this.pitchType = pitchType;
 		this.strike = strike;
@@ -37,13 +39,23 @@ public class Play {
 		this.pitcherId = id;
 	}
 	
-	public int getGameId()
+	public String getOpposingTeam()
 	{
-		return this.gameId;
+		return this.opposingTeam;
 	}
-	public void setGameId(int id)
+	public void setOpposingTeam(String team)
 	{
-		this.gameId = id;
+		this.opposingTeam = team;
+	}
+	
+	public String getDate()
+	{
+		return this.date;
+	}
+	
+	public void setDate(String date)
+	{
+		this.date = date;
 	}
 	
 	public int getInningId()

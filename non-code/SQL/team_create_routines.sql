@@ -203,22 +203,22 @@ INSERT INTO pitcher VALUES(203,'Baseball','Pitcher', 2, 0);
 INSERT INTO pitcher VALUES(379,'SJU','Baseball', 3, 0);
 
 --Test Game
-INSERT INTO game VALUES(999, 'St. Thomas', to_date('2022-03-28','YYYY-MM-DD'), 0);
-INSERT INTO game VALUES(1000, 'other team', to_date('2022-02-28','YYYY-MM-DD'), 0);
+INSERT INTO game VALUES('St. Thomas', '2022-03-28', 0);
+INSERT INTO game VALUES('other team', '2022-02-28', 0);
 
 --START INNING w/ PITCHER
-INSERT INTO inning VALUES(999, 1, 157, 0, 0);
+INSERT INTO inning VALUES('St. Thomas','2022-03-28', 1, 157, 0, 0);
 
 --THROW PITCHES
-INSERT INTO play VALUES(157, 999, 1,'FB', 1, 96, 01, 'Hit');
-INSERT INTO play VALUES(157, 999, 1, 'SPL', 1, 78, 02, 'Strike');
-INSERT INTO play VALUES(157, 999, 1, 'SLD', 1, 60, 03, 'Ball');
-INSERT INTO play VALUES(157, 999, 1,'FB', 1, 96, 04, 'Strike');
-INSERT INTO play VALUES(157, 999, 1, 'FB', 1, 78, 05, 'Strike');
-INSERT INTO play VALUES(157, 999, 1, 'CTR', 1, 60, 06, 'Ball');
-INSERT INTO play VALUES(157, 999, 1,'CU', 1, 96, 07, 'Strike');
-INSERT INTO play VALUES(157, 999, 1, 'FB', 1, 78, 08, 'Hit');
-INSERT INTO play VALUES(157, 999, 1, 'SLD', 1, 60, 09, 'Ball');
+INSERT INTO play VALUES(157, 'St. Thomas','2022-03-28', 1,'FB', 1, 96, 01, 'Hit');
+INSERT INTO play VALUES(157, 'St. Thomas','2022-03-28', 1, 'SPL', 1, 78, 02, 'Strike');
+INSERT INTO play VALUES(157, 'St. Thomas','2022-03-28', 1, 'SLD', 1, 60, 03, 'Ball');
+INSERT INTO play VALUES(157, 'St. Thomas','2022-03-28', 1,'FB', 1, 96, 04, 'Strike');
+INSERT INTO play VALUES(157, 'St. Thomas',to_date('2022-03-28','YYYY-MM-DD'), 1, 'FB', 1, 78, 05, 'Strike');
+INSERT INTO play VALUES(157, 'St. Thomas',to_date('2022-03-28','YYYY-MM-DD'), 1, 'CTR', 1, 60, 06, 'Ball');
+INSERT INTO play VALUES(157, 'St. Thomas',to_date('2022-03-28','YYYY-MM-DD'), 1,'CU', 1, 96, 07, 'Strike');
+INSERT INTO play VALUES(157, 'St. Thomas',to_date('2022-03-28','YYYY-MM-DD'), 1, 'FB', 1, 78, 08, 'Hit');
+INSERT INTO play VALUES(157, 'St. Thomas',to_date('2022-03-28','YYYY-MM-DD'), 1, 'SLD', 1, 60, 09, 'Ball');
 
 INSERT INTO inning VALUES(999,2,157, 0, 0);
 
@@ -312,6 +312,7 @@ AFTER INSERT ON play
         SET cumulativePitches = cumulativePitches + 1
         WHERE gameID = :NEW.gameID;
     END;
+    drop trigger AutoUpPitchCount
     
 --If pitch is deleted, down the pitch count for the inning
 CREATE OR REPLACE TRIGGER AutoDownOnDeletePitch

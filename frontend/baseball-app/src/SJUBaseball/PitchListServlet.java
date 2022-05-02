@@ -3,6 +3,7 @@ package SJUBaseball;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,13 +21,14 @@ public class PitchListServlet extends HttpServlet {
        
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String teamId = request.getParameter("game");
-     
-        request.setAttribute("selectedTeam", teamId);
+        String opposingTeam = request.getParameter("game");
+        request.setAttribute("selectedTeam", opposingTeam);
+        String date = request.getParameter("gameDate");
         
         GameDAO dao = new GameDAO();
     	try {
-            List<Play> playList = dao.getGamePlays(999);
+            System.out.println(opposingTeam);
+            List<Play> playList = dao.getGamePlays(opposingTeam, date);
             request.setAttribute("playList", playList);
  
             RequestDispatcher dispatcher = request.getRequestDispatcher("Pitches.jsp");
