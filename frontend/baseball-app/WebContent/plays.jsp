@@ -15,21 +15,21 @@
 <body>
     <div align="center">
         <table border="1" cellpadding="5">
-            <caption>
-            Plays From Game VS ${selectedTeam}
-            </caption>
+            <h3>
+            ${selectedTeam} Game on ${selectedDate}
+            </h3>
             <tr>
                 <th>Inning</th>
+                <th>Pitch Count</th>
                 <th>Pitch Type</th>
-                <th>Strike</th>
                 <th>Speed</th>
                 <th>Play Result</th>
             </tr>
             <c:forEach var="play" items="${playList}">
                 <tr>
                     <td><c:out value="${play.getInningId()}" /></td>
+                    <td><c:out value="${play.getPitchCount()}" /></td>
                     <td><c:out value="${play.getPitchType()}" /></td>
-                    <td><c:out value="${play.getStrike()}" /></td>
                     <td><c:out value="${play.getSpeed()}" /></td>
                     <td><c:out value="${play.getPlayResult()}" /></td>
                 </tr>
