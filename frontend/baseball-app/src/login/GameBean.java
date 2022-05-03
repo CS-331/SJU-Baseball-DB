@@ -60,7 +60,7 @@ public class GameBean implements Serializable{
             Connection connection2 = DriverManager.getConnection(databaseURL, user, pass);
             
             //Insert into GAME table
-            String insertString = "insert into GAME (OpposingTeam, GameDate, cumulativePiches) values(?,?,?)";
+            String insertString = "insert into GAME (OpposingTeam, GameDate, cumulativePitches) values(?,?,?)";
             PreparedStatement prep2 = connection2.prepareStatement(insertString);
             prep2.setString(1, opposingTeam);
             prep2.setString(2, gameDate);

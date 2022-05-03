@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="newGame" type="login.GameBean" scope="session" />
+<jsp:useBean id="newGame" class="login.GameBean" scope="session" />
 <jsp:setProperty name="newGame" property="*"/> 
+
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,7 +1,8 @@
 package SJUBaseball;
 
 import java.sql.Connection;
-import java.sql.Date;
+import SJUBaseball.ConnectionProvider;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,18 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
  
 public class GameDAO {
-	// info for connecting to the database
-    String databaseURL = "jdbc:oracle:thin:@//cscioraclerh7srv.ad.csbsju.edu:1521/csci.cscioraclerh7srv.ad.csbsju.edu";
-    String user = "";
-    String password = "";
      
     public List<Game> getGames() throws SQLException, ClassNotFoundException {
     	// an array list that will be populated with game objects that are created using jdbc
         List<Game> gameList = new ArrayList<>();
         
         try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection connection = DriverManager.getConnection(databaseURL, user, password);
+        	Connection connection = ConnectionProvider.createConnection();
             String sql = "select * from game";
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
@@ -50,7 +46,8 @@ public class GameDAO {
     	// an array list that will be populated with game objects that are created using jdbc
         List<Play> playList = new ArrayList<>();
          
-        try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
+        try {
+        	Connection connection = ConnectionProvider.createConnection();
             String queryString = "select * from play where OpposingTeam = ? and GameDate = ?";
             PreparedStatement prep = connection.prepareStatement(queryString); 
             prep.setString(1,opposingTeam);
@@ -87,7 +84,8 @@ public class GameDAO {
     	// an array list that will be populated with game objects that are created using jdbc
         List<String> dateList = new ArrayList<>();
          
-        try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
+        try {
+        	Connection connection = ConnectionProvider.createConnection();
             String queryString = "select GameDate from game where OpposingTeam = ?";
             PreparedStatement prep = connection.prepareStatement(queryString); 
             prep.setString(1,opposingTeam);
