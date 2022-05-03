@@ -13,23 +13,25 @@
 <title>Plays From Game VS ${selectedTeam}</title>
 </head>
 <body>
+	<a href="game-selection.jsp"><img src="back.png" width="50" height="50"></a>
+	<a href="home.jsp"><img src="sju-baseball.jpg" width="50" height="50"></a>
     <div align="center">
         <table border="1" cellpadding="5">
-            <h3>
-            ${selectedTeam} Game on ${selectedDate}
-            </h3>
+            <caption>
+            Plays From Game VS ${selectedTeam}
+            </caption>
             <tr>
                 <th>Inning</th>
-                <th>Pitch Count</th>
                 <th>Pitch Type</th>
+                <th>Strike</th>
                 <th>Speed</th>
                 <th>Play Result</th>
             </tr>
             <c:forEach var="play" items="${playList}">
                 <tr>
                     <td><c:out value="${play.getInningId()}" /></td>
-                    <td><c:out value="${play.getPitchCount()}" /></td>
                     <td><c:out value="${play.getPitchType()}" /></td>
+                    <td><c:out value="${play.getStrike()}" /></td>
                     <td><c:out value="${play.getSpeed()}" /></td>
                     <td><c:out value="${play.getPlayResult()}" /></td>
                 </tr>
