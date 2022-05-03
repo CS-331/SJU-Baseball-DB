@@ -13,7 +13,7 @@
 <title>SJU Pitcher Home Page</title>
 </head>
 <body>
-    <a href="home.jsp"><img src="sju-baseball.jpg" width="50" height="50"></a><div align="center"><h2>Select A Game</h2>
+    <a href="home.jsp"><img src="sju-baseball.jpg" width="50" height="50"></a>
     <h1>Game Dashboard</h1>
     <form action="pitches" method="get">
         <h4>Select a Game</h4>
