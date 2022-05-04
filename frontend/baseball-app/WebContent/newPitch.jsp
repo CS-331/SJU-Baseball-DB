@@ -11,10 +11,12 @@
 
 <h2>Enter Pitch</h2>
 <form action="addPitch.jsp" method="post" enctype="multipart/form-data">
-<h3>Game</h3>
-<input type="text" name="gameID" value=1></input>
+<h3>Game Date</h3>
+<input type="text" name="date"></input>
+<h3>Opposing Team</h3>
+<input type="text" name="opposingTeam"></input>
 <h3>Inning</h3>
-<input type="text" name="inningID" value=3></input>
+<input type="text" name="inningID"></input>
 <h3>Player</h3>
 <select name="playerID" id="playerID">
 <option value=test1>test1</option>
