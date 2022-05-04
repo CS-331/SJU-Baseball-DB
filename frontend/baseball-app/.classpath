@@ -14,5 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/opt/tomcat/apache-tomcat-8.5.61/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/usr/people/classes/Java/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="/usr/people/classes/Java/ojdbc6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
