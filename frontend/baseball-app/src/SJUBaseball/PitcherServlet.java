@@ -65,7 +65,7 @@ public class PitcherServlet extends HttpServlet {
     		List<Play> playList = dao.getPlaysForPitcher(pitcherID);
             request.setAttribute("playList", playList);
             
-			RequestDispatcher dispatcher = request.getRequestDispatcher("inningPlays.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("pitcherPlays.jsp");
             dispatcher.forward(request, response);
  
         } catch (SQLException e) {

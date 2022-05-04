@@ -100,7 +100,7 @@ public class PlayDao {
          
         try {
         	Connection connection = ConnectionProvider.createConnection();
-            String queryString = "select * from play where PitcherID = ?";
+            String queryString = "select * from play, pitcher where PitcherID = ? and PitcherID = PlayerID";
             PreparedStatement prep = connection.prepareStatement(queryString);
             prep.setString(1,pitcherID);
          
