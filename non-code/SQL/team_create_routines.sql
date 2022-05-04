@@ -410,16 +410,16 @@ DELETE FROM pitcher WHERE playerID = 379;
 -- Procedures
 -- **********************************************************************************************************************
 -- percentage of pitches resulting in strike
-Create or Replace procedure inning_pitch_strike_percentage(inning int, game_id int, strike_percent OUT number)
+Create or Replace procedure game_strike_percentage(team varchar, d varchar, strike_percent OUT number)
 AS
     tot_pitches int :=0;
     tot_strikes int :=0;
 Begin
 	Select Count(*) into tot_pitches from play p
-    where p.gameid = game_id and p.inningid = inning;
+    where p.GameDate = d and p.OpposingTeam = team;
     
 	Select Count(*) into tot_strikes from play p
-    Where p.PLAYRESULT = 'STRIKE' and p.gameid = game_id and p.inningid = inning;
+    Where p.playResult = 'Strike' and p.GameDate = d and p.OpposingTeam = team;
     strike_percent := tot_strikes/tot_pitches; 
 End; 
 
@@ -427,7 +427,7 @@ set serveroutput on;
 declare 
     z number;
 begin
-  inning_pitch_strike_percentage(1,1,z);
+  game_strike_percentage('St. Thomas','2022-03-28',z);
   DBMS_OUTPUT.PUT_LINE(z);
 end;
 

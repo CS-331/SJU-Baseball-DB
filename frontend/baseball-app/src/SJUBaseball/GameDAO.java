@@ -1,5 +1,6 @@
 package SJUBaseball;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import SJUBaseball.ConnectionProvider;
 
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.sql.Types;
  
 public class GameDAO {
      
@@ -78,7 +81,7 @@ public class GameDAO {
          
         return playList;
     }
-    
+    /*
     public List<Play> getGamePlaysFromInning(String opposingTeam, String date, String inning) throws SQLException
     {
     	// an array list that will be populated with game objects that are created using jdbc
@@ -90,7 +93,8 @@ public class GameDAO {
             PreparedStatement prep = connection.prepareStatement(queryString); 
             prep.setString(1,opposingTeam);
             prep.setString(2, date);
-            prep.setString(3, inning);
+            int inning2 = Integer.valueOf(inning);
+            prep.setInt(3, inning2);
          
             ResultSet result  = prep.executeQuery();
              
@@ -116,6 +120,30 @@ public class GameDAO {
         }      
          
         return playList;
+    }
+    */
+    
+    public float getGameStrikePer(String opposingTeam, String date) throws SQLException
+    {         
+    	float out = 0;
+        try {
+        	Connection connection = ConnectionProvider.createConnection();
+        	String SQL = "{call game_strike_percentage (?, ?, ?)}";
+        	CallableStatement cstmt = connection.prepareCall (SQL);
+        	cstmt.setString(1,opposingTeam);
+            cstmt.setString(2, date);
+            cstmt.registerOutParameter(3, Types.INTEGER);
+            cstmt.execute();
+            System.out.println(cstmt.getInt(3));
+            out = cstmt.getFloat(3);
+            connection.close();
+             
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw ex;
+        }      
+         
+        return out;
     }
     
     // currently not used - was hoping to implement dynamic dropdown feature with this
