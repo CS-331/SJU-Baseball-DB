@@ -2,68 +2,52 @@ package SJUBaseball;
 
 public class Pitcher {
 	
-	int playerId;
-	String fname;
-	String lname;
-	int playerNumber;
-	int gamesPlayed;
+	private int playerID = 0;
+	private String fName = "";
+	private String lName = "";
+	private int playerNumber = 0;
+	private int gamesPlayed = 0;
 	
 	public Pitcher() {
 		
 	}
 	
-	public Pitcher(int playerId, String fname, String lname, int playerNumber, int gamesPlayed)
-	{
-		this.playerId = playerId;
-		this.fname = fname;
-		this.lname = lname;
+	public Pitcher(int playerID, String fName, String lName, int playerNumber, int gamesPlayed) {
+		this.playerID = playerID;
+		this.fName = fName;
+		this.lName = lName;
 		this.playerNumber = playerNumber;
 		this.gamesPlayed = gamesPlayed;
 	}
 	
-	public int getPlayerId()
-	{
-		return this.playerId;
-		
+	public int getPlayerID() {
+		return playerID;
 	}
-	public void setPlayerId(int id)
-	{
-		this.playerId = id;
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
 	}
-	
-	public String getFirstName()
-	{
-		return this.fname;
+	public String getfName() {
+		return fName;
 	}
-	public void setFirstName(String first)
-	{
-		this.fname = first;
+	public void setfName(String fName) {
+		this.fName = fName;
 	}
-	
-	public String getLastName()
-	{
-		return this.lname;
+	public String getlName() {
+		return lName;
 	}
-	public void setLastName(String last)
-	{
-		this.lname = last;
+	public void setlName(String lName) {
+		this.lName = lName;
 	}
-	
-	public int getPlayerNumber()
-	{
-		return this.playerNumber;
+	public int getPlayerNumber() {
+		return playerNumber;
 	}
-	public void setPlayerNumber(int num)
-	{
-		this.playerNumber = num;
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
 	}
-	
-	public int getGamesPlayed()
-	{
-		return this.gamesPlayed;
+	public int getGamesPlayed() {
+		return gamesPlayed;
 	}
-	public void setGamesPlayed(int num)
-	{
-		this.gamesPlayed = num;
+	public void setGamesPlayed(int gamesPlayed) {
+		this.gamesPlayed = gamesPlayed;
 	}
 }

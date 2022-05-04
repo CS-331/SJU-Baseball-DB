@@ -16,9 +16,11 @@
 	<a href="game-selection.jsp"><img src="back.png" width="50" height="50"></a>
 	<a href="home.jsp"><img src="sju-baseball.jpg" width="50" height="50"></a>
     <div align="center">
-        <table border="1" cellpadding="5">
+    <%-- if there is a date but no inning or option selected --%>
+    <c:if test="${date!='' && option == 'None' }">
+     <table border="1" cellpadding="5">
             <h3>
-            ${selectedTeam} Game on ${selectedDate}
+            ${team} Game on ${date}
             </h3>
             <tr>
                 <th>Inning</th>
@@ -37,6 +39,16 @@
                 </tr>
             </c:forEach>
         </table>
+    </c:if>
+    
+    <%-- if there is a date an option selected --%>
+    
+    <c:if test="${date!='' && option == 'percentHits' }">
+    	Percent Hits Resulting in a Strike Against ${team} on ${date}: <b>${percent*100}%</b>
+    </c:if>
+    
+    <%-- if there is an option selected then everything needs to be selected --%>
+       
     </div>
 </body>
 </html>

@@ -46,6 +46,7 @@ Selection an Option Below
 <button onclick="location.href ='/baseball-app/menu'" class="button button1">View Games</button>
 <button onclick="location.href = '/baseball-app/pitchers'" class="button button1">View Pitcher Statistics</button>
 <button onclick="location.href = 'NewGame.jsp'" class="button button1">New Game</button>
+<button onclick="location.href = 'newPitch.jsp'" class="button button1">Enter Pitches</button>
 </div>
 
 
