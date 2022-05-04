@@ -7,7 +7,7 @@ public class PlayDao {
 		String queryString = "Insert into play values(?,?,?,?,?,?,?,?,?)";
 		
 		try {
-			Connection myConnection = ConnectionProvider.getCon();
+			Connection myConnection = ConnectionProvider.createConnection();
 			PreparedStatement preparedStmt = myConnection.prepareStatement(queryString);
 			preparedStmt.clearParameters();
 			preparedStmt.setInt(1,p.getPitcherId());
