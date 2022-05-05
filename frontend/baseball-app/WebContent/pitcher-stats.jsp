@@ -19,8 +19,8 @@
 	        <h4>Select a Pitcher</h4>
 	        <select name="pitcher">
 	            <c:forEach items="${pitcherList}" var="pitcher">
-	                <option value="${pitcher.getFirstName()} ${pitcher.getLastName()}">
-	                    ${pitcher.getFirstName()} ${pitcher.getLastName()}
+	                <option value="${pitcher.getfName()} ${pitcher.getlName()}">
+	                    ${pitcher.getfName()} ${pitcher.getlName()}
 	                </option>
 	            </c:forEach>
 	        </select>
